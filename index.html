@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зелёный мир - Экология для школьников</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Зелёный мир</h1>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Главная</a>
+                <a href="lessons.html"><i class="fas fa-book"></i> Уроки</a>
+                
+                <a href="gallery.html"><i class="fas fa-images"></i> Галерея</a>
+                <a href="resources.html"><i class="fas fa-link"></i> Ресурсы</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main>
+        <!-- Приветственная секция -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Проект "Зелёный мир"</h2>
+                <p>Интерактивная платформа для изучения экологии школьниками</p>
+                <div class="hero-buttons">
+                    <a href="lessons.html" class="btn-primary">Начать учиться</a>
+                  
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="eco-icon"><i class="fas fa-recycle"></i></div>
+                <div class="eco-icon"><i class="fas fa-tree"></i></div>
+                <div class="eco-icon"><i class="fas fa-seedling"></i></div>
+            </div>
+        </section>
+
+        <!-- О проекте -->
+        <section class="about">
+            <div class="container">
+                <h2>О проекте</h2>
+                <p>"Зелёный мир" - это образовательная платформа, созданная для того, чтобы сделать изучение экологии увлекательным и доступным для школьников. Для этого можно использовать интерактивные форматы с реальными примерами на этой платформе.</p>
+                
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Обучение</h3>
+                        <p>Понятные уроки по экологии для любого возраста</p>
+                    </div>
+                    
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>Галерея</h3>
+                        <p>Фотографии с реальных уроков и мероприятий</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Быстрый старт -->
+        <section class="quick-start">
+            <div class="container">
+                <h2>Начните прямо сейчас</h2>
+                <div class="start-cards">
+                    <a href="lessons.html#lesson1" class="start-card">
+                        <div class="card-number">1</div>
+                        <h3>Первый урок</h3>
+                        <p>Знакомство с экологией</p>
+                        <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                    </a>
+                    
+                    <a href="game.html" class="start-card">
+                        <div class="card-number">2</div>
+                        <h3>Эко-игра</h3>
+                        <p>Учись играя</p>
+                        <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                    </a>
+                    
+                    <a href="gallery.html" class="start-card">
+                        <div class="card-number">3</div>
+                        <h3>Наши уроки</h3>
+                        <p>Смотрите фотоотчёты</p>
+                        <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Информация о Telegram -->
+        <section class="telegram-info">
+            <div class="container">
+                <div class="telegram-card">
+                    <div class="telegram-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="telegram-content">
+                        <h3>Telegram-бот "Зелёный мир"</h3>
+                        <p>Получайте ежедневные эко-советы, уроки и напоминания прямо в мессенджере!</p>
+                        <a href="https://t.me/ZelenymirBot" target="_blank" class="btn-telegram">
+                            <i class="fab fa-telegram"></i> Перейти к боту
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>Зелёный мир</span>
+                    </div>
+                    <p>Образовательный проект по экологии для школьников</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="lessons.html">Уроки</a></li>
+                        
+                        <li><a href="gallery.html">Галерея</a></li>
+                        <li><a href="resources.html">Ресурсы</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Для вопросов и предложений:</p>
+                    <div class="social-links">
+                        <a href="artur2010game@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://t.me/+fv_Vv0oOHssxMjMy" target="_blank"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Проект "Зелёный мир". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

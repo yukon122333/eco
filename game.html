@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Эко-Игра - Зелёный мир</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Стили для игры */
+        .game-header {
+            text-align: center;
+            padding: 40px 0 20px;
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+        }
+        
+        .game-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .game-header p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+        
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2e7d32;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .game-scenario {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .scenario-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .choices-container {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .choice-btn {
+            padding: 15px 20px;
+            border: 2px solid #4caf50;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .choice-btn:hover {
+            background: #4caf50;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .choice-number {
+            width: 30px;
+            height: 30px;
+            background: #4caf50;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .choice-btn:hover .choice-number {
+            background: white;
+            color: #4caf50;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .feedback.correct {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .feedback.incorrect {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+        
+        .feedback h4 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .next-btn {
+            display: none;
+            margin-top: 20px;
+            width: 100%;
+            padding: 15px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .next-btn:hover {
+            background: #1b5e20;
+            transform: translateY(-2px);
+        }
+        
+        .game-results {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .trophy {
+            font-size: 4rem;
+            color: #ffc107;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        .restart-btn {
+            padding: 15px 40px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .restart-btn:hover {
+            background: #388e3c;
+            transform: translateY(-2px);
+        }
+        
+        .eco-tips {
+            margin-top: 40px;
+            padding: 30px;
+            background: #e8f5e9;
+            border-radius: 15px;
+        }
+        
+        .eco-tips h3 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .tip-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tip-icon {
+            font-size: 2rem;
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+        
+        @media (max-width: 768px) {
+            .game-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stat-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Зелёный мир</h1>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+                <a href="lessons.html"><i class="fas fa-book"></i> Уроки</a>
+                <a href="game.html" class="active"><i class="fas fa-gamepad"></i> Игра</a>
+                <a href="gallery.html"><i class="fas fa-images"></i> Галерея</a>
+                <a href="resources.html"><i class="fas fa-link"></i> Ресурсы</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="game-header">
+        <div class="container">
+            <h2>Эко-Квест: Спаси планету!</h2>
+            <p>Принимайте правильные решения в разных жизненных ситуациях и узнавайте, как помочь природе</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="game-container">
+            <!-- Статистика игры -->
+            <div class="game-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="score">0</span>
+                    <span class="stat-label">Баллы</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="level">1</span>
+                    <span class="stat-label">Уровень</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="ecoPoints">0</span>
+                    <span class="stat-label">Эко-баллы</span>
+                </div>
+            </div>
+            
+            <!-- Игровая зона -->
+            <div id="gameArea">
+                <!-- Здесь будет меняться контент игры -->
+            </div>
+            
+            <!-- Экологические советы -->
+            <div class="eco-tips">
+                <h3><i class="fas fa-lightbulb"></i> Полезные эко-советы</h3>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon"><i class="fas fa-recycle"></i></div>
+                        <p>Сортируйте мусор правильно</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon"><i class="fas fa-bolt"></i></div>
+                        <p>Выключайте свет, уходя из комнаты</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon"><i class="fas fa-tint"></i></div>
+                        <p>Экономьте воду при чистке зубов</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon"><i class="fas fa-shopping-bag"></i></div>
+                        <p>Используйте многоразовые сумки</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>Зелёный мир</span>
+                    </div>
+                    <p>Образовательный проект по экологии для школьников</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="lessons.html">Уроки</a></li>
+                        <li><a href="game.html">Игра</a></li>
+                        <li><a href="gallery.html">Галерея</a></li>
+                        <li><a href="resources.html">Ресурсы</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Для вопросов и предложений:</p>
+                    <div class="social-links">
+                        <a href="mailto:ecolessons@example.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://t.me/your_channel" target="_blank"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear">2024</span> Проект "Зелёный мир". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript игры -->
+    <script>
+        // Данные игры
+        const gameData = {
+            score: 0,
+            level: 1,
+            ecoPoints: 0,
+            currentScenario: 0,
+            scenarios: [
+                {
+                    id: 1,
+                    title: "Прогулка в парке",
+                    text: "Вы идёте по парку и видите пластиковую бутылку, лежащую на дорожке. Рядом стоит обычная урна и контейнер для пластика. Что вы сделаете?",
+                    choices: [
+                        {
+                            text: "Пройти мимо - не мое дело",
+                            points: -10,
+                            feedback: "Плохой выбор! Пластик будет разлагаться 400 лет и вредить природе.",
+                            ecoImpact: -5
+                        },
+                        {
+                            text: "Поднять и выбросить в ближайшую урну",
+                            points: 10,
+                            feedback: "Хорошо! Вы сделали парк чище, но пластик не будет переработан.",
+                            ecoImpact: 3
+                        },
+                        {
+                            text: "Отнести в контейнер для пластика на выходе из парка",
+                            points: 25,
+                            feedback: "Отлично! Вы не только убрали мусор, но и позаботились о его переработке!",
+                            ecoImpact: 10
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "Поход в магазин",
+                    text: "Мама просит вас сходить в магазин за продуктами. Как вы возьмёте продукты домой?",
+                    choices: [
+                        {
+                            text: "Куплю пластиковые пакеты на кассе",
+                            points: -15,
+                            feedback: "Не экологично! Пластиковые пакеты используются в среднем 20 минут, а разлагаются 200 лет.",
+                            ecoImpact: -8
+                        },
+                        {
+                            text: "Возьму бумажные пакеты - они экологичнее",
+                            points: 5,
+                            feedback: "Бумажные пакеты действительно лучше пластиковых, но их производство требует много воды и энергии.",
+                            ecoImpact: 2
+                        },
+                        {
+                            text: "Возьму свою тканевую сумку из дома",
+                            points: 20,
+                            feedback: "Идеально! Многоразовые сумки - лучший выбор для природы!",
+                            ecoImpact: 15
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: "Экономия воды",
+                    text: "Вы чистите зубы утром. Кран с водой работает. Как вы поступите?",
+                    choices: [
+                        {
+                            text: "Оставить воду включенной - так удобнее",
+                            points: -20,
+                            feedback: "Очень расточительно! За 2 минуты чистки зубов утекает около 20 литров воды!",
+                            ecoImpact: -10
+                        },
+                        {
+                            text: "Включить воду только для полоскания",
+                            points: 15,
+                            feedback: "Правильно! Так вы экономите до 80% воды!",
+                            ecoImpact: 8
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    title: "Старая электроника",
+                    text: "У вас сломался старый мобильный телефон. Что вы с ним сделаете?",
+                    choices: [
+                        {
+                            text: "Выбросить в мусорное ведро",
+                            points: -25,
+                            feedback: "Опасный выбор! Электроника содержит токсичные вещества, которые загрязняют почву.",
+                            ecoImpact: -15
+                        },
+                        {
+                            text: "Хранить дома - вдруг пригодится",
+                            points: 0,
+                            feedback: "Не самый плохой вариант, но есть лучшее решение.",
+                            ecoImpact: 0
+                        },
+                        {
+                            text: "Сдать в пункт приёма электроники",
+                            points: 30,
+                            feedback: "Прекрасно! Электронику можно переработать и получить ценные материалы!",
+                            ecoImpact: 20
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    title: "Энергосбережение",
+                    text: "Вы уходите из дома на весь день. Что сделаете с электроприборами?",
+                    choices: [
+                        {
+                            text: "Ничего - пусть всё работает как обычно",
+                            points: -15,
+                            feedback: "Расточительно! Приборы в режиме ожидания потребляют до 10% электроэнергии.",
+                            ecoImpact: -8
+                        },
+                        {
+                            text: "Выключу свет и телевизор",
+                            points: 10,
+                            feedback: "Хорошо, но можно сделать больше для экономии энергии.",
+                            ecoImpact: 5
+                        },
+                        {
+                            text: "Выключу все приборы из розеток",
+                            points: 25,
+                            feedback: "Отлично! Вы сэкономили энергию и снизили выбросы CO₂!",
+                            ecoImpact: 12
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // DOM элементы
+        const gameArea = document.getElementById('gameArea');
+        const scoreElement = document.getElementById('score');
+        const levelElement = document.getElementById('level');
+        const ecoPointsElement = document.getElementById('ecoPoints');
+
+        // Инициализация игры
+        function initGame() {
+            gameData.score = 0;
+            gameData.level = 1;
+            gameData.ecoPoints = 0;
+            gameData.currentScenario = 0;
+            updateStats();
+            showStartScreen();
+        }
+
+        // Показать стартовый экран
+        function showStartScreen() {
+            gameArea.innerHTML = `
+                <div class="game-scenario">
+                    <h2>Добро пожаловать в Эко-Квест!</h2>
+                    <div class="scenario-text">
+                        <p>👋 Привет, юный эколог!</p>
+                        <p>В этой игре тебе предстоит принимать решения в разных жизненных ситуациях. 
+                        Выбирай правильные варианты, зарабатывай баллы и спасай планету!</p>
+                        <p>За каждое правильное решение ты получаешь:</p>
+                        <ul>
+                            <li>📈 Баллы за правильный выбор</li>
+                            <li>🌱 Эко-баллы за пользу природе</li>
+                            <li>⭐ Уровни за пройденные задания</li>
+                        </ul>
+                        <p>Готов стать героем экологии?</p>
+                    </div>
+                    <button class="next-btn" onclick="startGame()">
+                        <i class="fas fa-play"></i> Начать игру
+                    </button>
+                </div>
+            `;
+        }
+
+        // Начать игру
+        function startGame() {
+            gameData.currentScenario = 0;
+            showScenario(gameData.currentScenario);
+        }
+
+        // Показать сценарий
+        function showScenario(index) {
+            if (index >= gameData.scenarios.length) {
+                showResults();
+                return;
+            }
+
+            const scenario = gameData.scenarios[index];
+            gameData.level = index + 1;
+            updateStats();
+
+            let choicesHTML = '';
+            scenario.choices.forEach((choice, i) => {
+                choicesHTML += `
+                    <button class="choice-btn" onclick="makeChoice(${i})">
+                        <span class="choice-number">${i + 1}</span>
+                        <span>${choice.text}</span>
+                    </button>
+                `;
+            });
+
+            gameArea.innerHTML = `
+                <div class="game-scenario">
+                    <h3>Уровень ${gameData.level}: ${scenario.title}</h3>
+                    <div class="scenario-text">
+                        <p>${scenario.text}</p>
+                    </div>
+                    <div class="choices-container">
+                        ${choicesHTML}
+                    </div>
+                    <div id="feedback" class="feedback"></div>
+                    <button id="nextBtn" class="next-btn" onclick="nextScenario()">
+                        <i class="fas fa-arrow-right"></i> Следующая ситуация
+                    </button>
+                </div>
+            `;
+
+            // Скрыть кнопку "Далее" пока не выбран ответ
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+
+        // Сделать выбор
+        function makeChoice(choiceIndex) {
+            const scenario = gameData.scenarios[gameData.currentScenario];
+            const choice = scenario.choices[choiceIndex];
+            const feedbackDiv = document.getElementById('feedback');
+            const nextBtn = document.getElementById('nextBtn');
+
+            // Обновить очки
+            gameData.score += choice.points;
+            gameData.ecoPoints += choice.ecoImpact;
+            updateStats();
+
+            // Показать обратную связь
+            feedbackDiv.innerHTML = `
+                <h4>
+                    <i class="fas ${choice.points > 0 ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                    ${choice.points > 0 ? 'Правильно!' : 'Можно лучше'}
+                </h4>
+                <p>${choice.feedback}</p>
+                <p><strong>${choice.points > 0 ? '+' : ''}${choice.points} баллов</strong></p>
+                <p><strong>${choice.ecoImpact > 0 ? '+' : ''}${choice.ecoImpact} эко-баллов</strong></p>
+            `;
+
+            feedbackDiv.className = `feedback ${choice.points > 0 ? 'correct' : 'incorrect'}`;
+            feedbackDiv.style.display = 'block';
+            nextBtn.style.display = 'block';
+
+            // Заблокировать кнопки выбора
+            document.querySelectorAll('.choice-btn').forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+            });
+        }
+
+        // Следующий сценарий
+        function nextScenario() {
+            gameData.currentScenario++;
+            if (gameData.currentScenario < gameData.scenarios.length) {
+                showScenario(gameData.currentScenario);
+            } else {
+                showResults();
+            }
+        }
+
+        // Показать результаты
+        function showResults() {
+            let resultText = '';
+            let trophy = '';
+            
+            if (gameData.score >= 80) {
+                resultText = '🎉 Потрясающе! Ты настоящий эко-герой!';
+                trophy = '🏆';
+            } else if (gameData.score >= 50) {
+                resultText = '👍 Отличный результат! Ты хорошо заботишься о природе!';
+                trophy = '🥈';
+            } else if (gameData.score >= 20) {
+                resultText = '✅ Хорошо! Ты на правильном пути!';
+                trophy = '🥉';
+            } else {
+                resultText = '💡 Есть куда расти! Изучай экологию и пробуй снова!';
+                trophy = '🌱';
+            }
+
+            gameArea.innerHTML = `
+                <div class="game-results">
+                    <div class="trophy">${trophy}</div>
+                    <h2>Игра завершена!</h2>
+                    <div class="scenario-text">
+                        <p>${resultText}</p>
+                        <h3>Твои результаты:</h3>
+                        <p><strong>Финальный счет: ${gameData.score} баллов</strong></p>
+                        <p><strong>Эко-вклад: ${gameData.ecoPoints} баллов</strong></p>
+                        <p><strong>Пройдено уровней: ${gameData.scenarios.length}</strong></p>
+                        <p>Твои решения помогли природе! Каждый день делай выбор в пользу экологии!</p>
+                    </div>
+                    <button class="restart-btn" onclick="initGame()">
+                        <i class="fas fa-redo"></i> Играть снова
+                    </button>
+                    <p style="margin-top: 20px;">
+                        <a href="lessons.html" style="color: #2e7d32; font-weight: bold;">
+                            <i class="fas fa-book"></i> Перейти к урокам →
+                        </a>
+                    </p>
+                </div>
+            `;
+        }
+
+        // Обновить статистику
+        function updateStats() {
+            scoreElement.textContent = gameData.score;
+            levelElement.textContent = gameData.level;
+            ecoPointsElement.textContent = gameData.ecoPoints;
+        }
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', initGame);
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

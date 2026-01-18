@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ресурсы по экологии - Зелёный мир</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Стили для страницы ресурсов */
+        .resources-header {
+            text-align: center;
+            padding: 50px 0 30px;
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            color: white;
+        }
+        
+        .resources-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .resources-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .resources-container {
+            padding: 40px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover {
+            background: #e8f5e9;
+        }
+        
+        .filter-btn.active {
+            background: #2e7d32;
+            color: white;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .resource-icon {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .resource-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .resource-content h3 {
+            color: #1b5e20;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .resource-content p {
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 15px;
+        }
+        
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+        
+        .resource-link:hover {
+            background: #388e3c;
+            transform: translateY(-2px);
+        }
+        
+        .book-recommendations {
+            background: #fff3e0;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .book-recommendations h3 {
+            color: #e65100;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+        
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .book-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .book-cover {
+            height: 150px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 3rem;
+            color: #4caf50;
+        }
+        
+        .book-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .book-author {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .book-year {
+            color: #888;
+            font-size: 0.8rem;
+        }
+        
+        .organizations {
+            background: #e8f5e9;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .organizations h3 {
+            color: #1b5e20;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+        
+        .org-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .org-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .org-icon {
+            width: 50px;
+            height: 50px;
+            background: #4caf50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .org-info {
+            flex-grow: 1;
+        }
+        
+        .org-name {
+            font-weight: bold;
+            color: #1b5e20;
+            margin-bottom: 5px;
+        }
+        
+        .org-link {
+            color: #4caf50;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .org-link:hover {
+            text-decoration: underline;
+        }
+        
+        .add-resource-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .add-resource-form h3 {
+            color: #1b5e20;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #4caf50;
+            outline: none;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: #1b5e20;
+            transform: translateY(-2px);
+        }
+        
+        .color-video { background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%); }
+        .color-website { background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); }
+        .color-documentary { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+        .color-game { background: linear-gradient(135deg, #f39c12 0%, #d35400 100%); }
+        .color-app { background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%); }
+        .color-article { background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .resource-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        @media (max-width: 768px) {
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .org-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .org-info {
+                width: 100%;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .category-filter {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Зелёный мир</h1>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+                <a href="lessons.html"><i class="fas fa-book"></i> Уроки</a>
+              
+                <a href="gallery.html"><i class="fas fa-images"></i> Галерея</a>
+                <a href="resources.html" class="active"><i class="fas fa-link"></i> Ресурсы</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="resources-header">
+        <div class="container">
+            <h2>Полезные ресурсы</h2>
+            <p>Собранная коллекция лучших материалов по экологии для школьников и учителей</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="resources-container">
+            <div class="container">
+                <!-- Фильтр категорий -->
+                <div class="category-filter">
+                    <button class="filter-btn active" onclick="filterResources('all')">Все ресурсы</button>
+                    <button class="filter-btn" onclick="filterResources('video')">Видео</button>
+                    <button class="filter-btn" onclick="filterResources('website')">Сайты</button>
+                    <button class="filter-btn" onclick="filterResources('article')">Статьи</button>
+                    <button class="filter-btn" onclick="filterResources('game')">Игры</button>
+                    <button class="filter-btn" onclick="filterResources('app')">Приложения</button>
+                </div>
+                
+                <!-- Ресурсы -->
+                <div class="resources-grid" id="resourcesGrid">
+                    <!-- Видео -->
+                    <div class="resource-card" data-category="video">
+                        <div class="resource-icon color-video">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Экология из первых уст</h3>
+                            <p>Научно-популярный канал, который объясняет сложные экологические проблемы простым языком. Подходит для школьников любого возраста.</p>
+                            <div class="resource-meta">
+                                <span><i class="fas fa-clock"></i> 15-20 мин</span>
+                                <span><i class="fas fa-star"></i> Для всех возрастов</span>
+                            </div>
+                            <a href="https://vkvideo.ru/video-45873308_456239478" target="_blank" class="resource-link">
+                                <i class="fab fa-youtube"></i> Перейти к видео
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Веб-сайт -->
+                    <div class="resource-card" data-category="website">
+                        <div class="resource-icon color-website">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>10 редких растений из Красной книги России фото и описание</h3>
+                            <div class="resource-meta">
+                                <span><i class="fas fa-language"></i> Русский</span>
+                                <span><i class="fas fa-users"></i> Для школ</span>
+                            </div>
+                            <a href="https://share.google/yQxpwi5H5UNVFukXO" target="_blank" class="resource-link">
+                                <i class="fas fa-external-link-alt"></i> Посетить сайт
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Документальный фильм -->
+                    <div class="resource-card" data-category="video">
+                        <div class="resource-icon color-documentary">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>"Дом" - документальный фильм</h3>
+                            <p>Потрясающий документальный фильм о красоте нашей планеты и влиянии человечества на экологию. Бесплатный просмотр на официальном канале.</p>
+                            <div class="resource-meta">
+                                <span><i class="fas fa-clock"></i> 1.5 часа</span>
+                                <span><i class="fas fa-eye"></i> 12+ лет</span>
+                            </div>
+                            <a href="https://vkvideo.ru/video-39162271_456239117" target="_blank" class="resource-link">
+                                <i class="fas fa-play-circle"></i> Смотреть фильм
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Мобильное приложение -->
+                    <div class="resource-card" data-category="app">
+                        <div class="resource-icon color-app">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>ЭкоГид: определитель растений</h3>
+                            <p>Бесплатное мобильное приложение для определения растений по фотографии. Помогает изучать природу во время прогулок и экскурсий.</p>
+                            <div class="resource-meta">
+                                <span><i class="fab fa-android"></i> Android/iOS</span>
+                                <span><i class="fas fa-tree"></i> Биология</span>
+                            </div>
+                            <a href="https://play.google.com/store/apps/details?id=ru.ecogid" target="_blank" class="resource-link">
+                                <i class="fas fa-download"></i> Скачать приложение
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Ещё видео -->
+                    <div class="resource-card" data-category="video">
+                        <div class="resource-icon color-video">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Что находится в экологической лаборатории</h3>
+                            <p>Плейлист с простыми научными экспериментами, которые можно повторить в школе или дома. Наглядно показывает экологические процессы.</p>
+                            <div class="resource-meta">
+                                <span><i class="fas fa-flask"></i> Эксперименты</span>
+                                <span><i class="fas fa-vial"></i> Безопасно</span>
+                            </div>
+                            <a href="https://vkvideo.ru/video-219342977_456239169" target="_blank" class="resource-link">
+                                <i class="fab fa-youtube"></i> Смотреть опыты
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Ещё сайт -->
+                    <div class="resource-card" data-category="website">
+                        <div class="resource-icon color-website">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Greenpeace Россия</h3>
+                            <p>Образовательный раздел Greenpeace с материалами для уроков, исследованиями и актуальными экологическими новостями.</p>
+                            <div class="resource-meta">
+                                <span><i class="fas fa-newspaper"></i> Новости</span>
+                                <span><i class="fas fa-download"></i> Материалы</span>
+                            </div>
+                            <a href="https://greenpeace.ru/education/" target="_blank" class="resource-link">
+                                <i class="fas fa-external-link-alt"></i> Посетить сайт
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Рекомендации книг -->
+                <div class="book-recommendations">
+                    <h3><i class="fas fa-book"></i> Рекомендуемые книги по экологии</h3>
+                    <div class="books-grid">
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <div class="book-title">"Мусорная революция"</div>
+                            <div class="book-author">Эрика Файви</div>
+                            <div class="book-year">2020 год</div>
+                        </div>
+                        
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                            <div class="book-title">"Невероятные приключения в мире природы"</div>
+                            <div class="book-author">Майкл Брайт</div>
+                            <div class="book-year">2019 год</div>
+                        </div>
+                        
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="book-title">"Планета без пластика"</div>
+                            <div class="book-author">Наталья Софьина</div>
+                            <div class="book-year">2021 год</div>
+                        </div>
+                        
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <div class="book-title">"Вода - необычное вещество"</div>
+                            <div class="book-author">Алексей Оскольский</div>
+                            <div class="book-year">2018 год</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Экологические организации -->
+                <div class="organizations">
+                    <h3><i class="fas fa-hands-helping"></i> Экологические организации России</h3>
+                    <ul class="org-list">
+                      
+                            </div>
+                        <li class="org-item">
+                            <div class="org-icon">
+                                <i class="fas fa-ship"></i>
+                            </div>
+                            <div class="org-info">
+                                <div class="org-name">Greenpeace Россия</div>
+                                <div>Защита природы от загрязнения, сохранение Арктики</div>
+                                <a href="https://greenpeace.ru/" target="_blank" class="org-link">greenpeace.ru</a>
+                            </div>
+                        </li>
+                        
+                        <li class="org-item">
+                            <div class="org-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div class="org-info">
+                                <div class="org-name">Движение ЭКА</div>
+                                <div>Экологическое просвещение, школьные проекты</div>
+                                <a href="https://ecamir.ru/" target="_blank" class="org-link">ecamir.ru</a>
+                            </div>
+                        </li>
+                        
+                        <li class="org-item">
+                            <div class="org-icon">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="org-info">
+                                <div class="org-name">РазДельный Сбор</div>
+                                <div>Популяризация раздельного сбора отходов в России</div>
+                                <a href="https://rsbor.ru/" target="_blank" class="org-link">rsbor.ru</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Форма добавления ресурса -->
+                <div class="add-resource-form">
+                    <h3><i class="fas fa-plus-circle"></i> Добавить свой ресурс</h3>
+                    <p style="text-align: center; margin-bottom: 30px; color: #666;">Знаете полезный ресурс по экологии? Поделитесь им!</p>
+                    
+                    <form id="resourceForm">
+                        <div class="form-group">
+                            <label for="resourceTitle">Название ресурса *</label>
+                            <input type="text" id="resourceTitle" placeholder="Например: 'Экология для детей'" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="resourceUrl">Ссылка на ресурс *</label>
+                            <input type="url" id="resourceUrl" placeholder="https://example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="resourceCategory">Категория *</label>
+                            <select id="resourceCategory" required>
+                                <option value="">Выберите категорию</option>
+                                <option value="video">Видео</option>
+                                <option value="website">Сайт</option>
+                                <option value="article">Статья</option>
+                                <option value="game">Игра</option>
+                                <option value="app">Приложение</option>
+                                <option value="book">Книга</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="resourceDescription">Описание *</label>
+                            <textarea id="resourceDescription" placeholder="Кратко опишите, чем полезен этот ресурс..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="resourceAge">Для какого возраста?</label>
+                            <input type="text" id="resourceAge" placeholder="Например: 10-14 лет или 'для всех возрастов'">
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-share-alt"></i> Поделиться ресурсом
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>Зелёный мир</span>
+                    </div>
+                    <p>Образовательный проект по экологии для школьников</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="lessons.html">Уроки</a></li>
+                        
+                        <li><a href="gallery.html">Галерея</a></li>
+                        <li><a href="resources.html">Ресурсы</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Для вопросов и предложений:</p>
+                    <div class="social-links">
+                        <a href="mailto:ecolessons@example.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://t.me/your_channel" target="_blank"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear">2024</span> Проект "Зелёный мир". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript для фильтрации ресурсов и формы -->
+    <script>
+        // Фильтрация ресурсов
+        function filterResources(category) {
+            const resources = document.querySelectorAll('.resource-card');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // Обновить активную кнопку
+            filterButtons.forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && btn.textContent === 'Все ресурсы')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Показать/скрыть ресурсы
+            resources.forEach(resource => {
+                if (category === 'all' || resource.dataset.category === category) {
+                    resource.style.display = 'flex';
+                    resource.style.animation = 'fadeIn 0.5s ease';
+                } else {
+                    resource.style.display = 'none';
+                }
+            });
+            
+            // Прокрутить к началу сетки
+            document.getElementById('resourcesGrid').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }
+        
+        // Обработка формы
+        document.getElementById('resourceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('resourceTitle').value;
+            const url = document.getElementById('resourceUrl').value;
+            const category = document.getElementById('resourceCategory').value;
+            const description = document.getElementById('resourceDescription').value;
+            const age = document.getElementById('resourceAge').value;
+            
+            // Иконки для категорий
+            const categoryIcons = {
+                'video': 'fas fa-video',
+                'website': 'fas fa-globe',
+                'article': 'fas fa-newspaper',
+                'game': 'fas fa-gamepad',
+                'app': 'fas fa-mobile-alt',
+                'book': 'fas fa-book'
+            };
+            
+            const categoryColors = {
+                'video': 'color-video',
+                'website': 'color-website',
+                'article': 'color-article',
+                'game': 'color-game',
+                'app': 'color-app',
+                'book': 'color-documentary'
+            };
+            
+            const categoryNames = {
+                'video': 'Видео',
+                'website': 'Сайт',
+                'article': 'Статья',
+                'game': 'Игра',
+                'app': 'Приложение',
+                'book': 'Книга'
+            };
+            
+            // Создание нового элемента ресурса
+            const newResource = document.createElement('div');
+            newResource.className = 'resource-card';
+            newResource.dataset.category = category;
+            newResource.style.animation = 'fadeIn 0.5s ease';
+            
+            newResource.innerHTML = `
+                <div class="resource-icon ${categoryColors[category]}">
+                    <i class="${categoryIcons[category]}"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>${title}</h3>
+                    <p>${description}</p>
+                    <div class="resource-meta">
+                        <span><i class="fas fa-tag"></i> ${categoryNames[category]}</span>
+                        ${age ? `<span><i class="fas fa-user"></i> ${age}</span>` : ''}
+                    </div>
+                    <a href="${url}" target="_blank" class="resource-link">
+                        <i class="fas fa-external-link-alt"></i> Перейти к ресурсу
+                    </a>
+                </div>
+            `;
+            
+            // Добавить в сетку
+            document.getElementById('resourcesGrid').appendChild(newResource);
+            
+            // Очистить форму
+            document.getElementById('resourceForm').reset();
+            
+            // Показать сообщение об успехе
+            alert('Спасибо! Ваш ресурс добавлен на страницу.');
+            
+            // Прокрутить к новому ресурсу
+            setTimeout(() => {
+                newResource.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        });
+        
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Устанавливаем текущий год в футере
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Добавляем анимацию появления элементов
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Наблюдаем за карточками ресурсов
+            document.querySelectorAll('.resource-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+            
+            // Наблюдаем за другими элементами
+            document.querySelectorAll('.book-card, .org-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

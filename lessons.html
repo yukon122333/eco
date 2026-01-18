@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уроки экологии - Зелёный мир</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Стили для страницы уроков */
+        .lessons-header {
+            text-align: center;
+            padding: 50px 0 30px;
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            color: white;
+        }
+        
+        .lessons-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .lessons-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .lessons-container {
+            padding: 40px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .lessons-nav {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .lessons-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .lesson-tab {
+            padding: 12px 25px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .lesson-tab:hover {
+            background: #e8f5e9;
+        }
+        
+        .lesson-tab.active {
+            background: #2e7d32;
+            color: white;
+        }
+        
+        .lesson-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .lesson-content.active {
+            display: block;
+        }
+        
+        .lesson-title {
+            color: #1b5e20;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e8f5e9;
+        }
+        
+        .lesson-icon {
+            font-size: 3rem;
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+        
+        .editor-instructions {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .editor-instructions h4 {
+            color: #1b5e20;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .lesson-content-area {
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+        
+        .lesson-content-area h3 {
+            color: #2e7d32;
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .lesson-content-area p {
+            margin-bottom: 15px;
+        }
+        
+        .lesson-content-area ul, 
+        .lesson-content-area ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        .lesson-content-area li {
+            margin-bottom: 8px;
+        }
+        
+        .lesson-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .lesson-tips {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .lesson-tips h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        
+        .lesson-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .action-btn {
+            padding: 12px 25px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background: #388e3c;
+            transform: translateY(-2px);
+        }
+        
+        .action-btn.prev {
+            background: #757575;
+        }
+        
+        .action-btn.prev:hover {
+            background: #616161;
+        }
+        
+        .lesson-quiz {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .quiz-question {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .quiz-option {
+            padding: 15px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            border-color: #4caf50;
+            background: #f9f9f9;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .lessons-tabs {
+                flex-direction: column;
+            }
+            
+            .lesson-tab {
+                min-width: 100%;
+            }
+            
+            .lesson-content {
+                padding: 25px;
+            }
+            
+            .lesson-title {
+                font-size: 1.8rem;
+            }
+            
+            .lesson-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Зелёный мир</h1>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+                <a href="lessons.html" class="active"><i class="fas fa-book"></i> Уроки</a>
+             
+                <a href="gallery.html"><i class="fas fa-images"></i> Галерея</a>
+                <a href="resources.html"><i class="fas fa-link"></i> Ресурсы</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="lessons-header">
+        <div class="container">
+            <h2>Уроки экологии</h2>
+            <p>Три интересных урока для изучения экологии. Читайте, изучайте и применяйте знания на практике!</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="lessons-container">
+            <div class="container">
+                <!-- Навигация по урокам -->
+                <div class="lessons-nav">
+                    <div class="lessons-tabs">
+                        <button class="lesson-tab active" onclick="showLesson(1)">
+                            <i class="fas fa-seedling"></i> Урок 1: Основы экологии
+                        </button>
+                        <button class="lesson-tab" onclick="showLesson(2)">
+                            <i class="fas fa-recycle"></i> Урок 2: Переработка отходов
+                        </button>
+                        <button class="lesson-tab" onclick="showLesson(3)">
+                            <i class="fas fa-tint"></i> Урок 3: Сохранение воды
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Инструкция для редактора -->
+                <div class="editor-instructions">
+                    <h4><i class="fas fa-edit"></i> Как добавить свои уроки:</h4>
+                    <p>1. Выберите урок для редактирования вкладкой выше</p>
+                    <p>2. Замените текст внутри тегов <code>&lt;div class="lesson-content-area"&gt;...&lt;/div&gt;</code></p>
+                    <p>3. Сохраните файл и обновите страницу в браузере</p>
+                    <p><strong>Вставляйте свои тексты, картинки, списки - всё, что нужно для уроков!</strong></p>
+                </div>
+                
+                <!-- Урок 1 -->
+                <div id="lesson1" class="lesson-content active">
+                    <div class="lesson-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h2 class="lesson-title">Урок 1: Основы экологии</h2>
+                    
+                    <div class="lesson-content-area">
+                        <!-- ТУТ ВСТАВИТЬ ТЕКСТ ПЕРВОГО УРОКА -->
+                        <p>Добро пожаловать на первый урок по экологии! Экология - это наука о взаимоотношениях живых организмов между собой и с окружающей средой.</p>
+                        
+                        <h3>Что изучает экология?</h3>
+                        <p>Экология помогает нам понять:</p>
+                        <ul>
+                            <li>Как растения и животные взаимодействуют друг с другом</li>
+                            <li>Как человеческая деятельность влияет на природу</li>
+                            <li>Как сохранить баланс в природе</li>
+                            <li>Как защитить нашу планету для будущих поколений</li>
+                        </ul>
+                        
+                        
+                        
+                        <h3>Основные понятия</h3>
+                        <p><strong>Экосистема</strong> - сообщество живых организмов вместе с их средой обитания.</p>
+                        <p><strong>Биоразнообразие</strong> - разнообразие жизни во всех её проявлениях.</p>
+                        <p><strong>Устойчивое развитие</strong> - развитие, которое удовлетворяет потребности настоящего, не ставя под угрозу способность будущих поколений удовлетворять свои собственные потребности.</p>
+                        
+                        <div class="lesson-tips">
+                            <h4><i class="fas fa-lightbulb"></i> Практическое задание</h4>
+                            <p>На этой неделе попробуйте:</p>
+                            <ol>
+                                <li>Понаблюдать за природой в вашем дворе или парке</li>
+                                <li>Записать, какие растения и животные там обитают</li>
+                                <li>Отметить, как люди влияют на это место</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <!-- Простая викторина -->
+                    <div class="lesson-quiz">
+                        <h4>Проверьте свои знания:</h4>
+                        <div class="quiz-question">Что такое экология?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="this.style.background='#e8f5e9'; this.style.borderColor='#4caf50'">Наука о взаимоотношениях организмов и среды</div>
+                            <div class="quiz-option" onclick="this.style.background='#ffebee'; this.style.borderColor='#f44336'">Изучение только растений</div>
+                            <div class="quiz-option" onclick="this.style.background='#ffebee'; this.style.borderColor='#f44336'">Наука о погоде</div>
+                        </div>
+                    </div>
+                    
+                    <div class="lesson-actions">
+                        <button class="action-btn prev" disabled>
+                            <i class="fas fa-arrow-left"></i> Предыдущий урок
+                        </button>
+                        <button class="action-btn next" onclick="showLesson(2)">
+                            Следующий урок <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Урок 2 -->
+                <div id="lesson2" class="lesson-content">
+                    <div class="lesson-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h2 class="lesson-title">Урок 2: Переработка отходов</h2>
+                    
+                    <div class="lesson-content-area">
+                        <!-- ТУТ ВСТАВИТЬ ТЕКСТ ВТОРОГО УРОКА -->
+                        <p>Переработка отходов - одна из самых важных тем в экологии. Каждый день люди производят огромное количество мусора, и нам нужно научиться правильно с ним обращаться.</p>
+                        
+                        <h3>Почему переработка важна?</h3>
+                        <ul>
+                            <li>Сокращает количество мусора на свалках</li>
+                            <li>Сохраняет природные ресурсы</li>
+                            <li>Экономит энергию</li>
+                            <li>Снижает загрязнение воздуха и воды</li>
+                        </ul>
+                        
+                        <h3>Как сортировать мусор?</h3>
+                        <p>Основные правила сортировки:</p>
+                        <ol>
+                            <li><strong>Пластик</strong> (бутылки, упаковка) - в жёлтый контейнер</li>
+                            <li><strong>Бумага и картон</strong> - в синий контейнер</li>
+                            <li><strong>Стекло</strong> - в зелёный контейнер</li>
+                            <li><strong>Металл</strong> (банки, крышки) - в серый контейнер</li>
+                            <li><strong>Опасные отходы</strong> (батарейки, лампы) - в специальные пункты приёма</li>
+                        </ol>
+                        
+                        <!-- Пример фактов -->
+                        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin: 25px 0;">
+                            <h4><i class="fas fa-chart-bar"></i> Интересные факты:</h4>
+                            <ul>
+                                <li>1 пластиковая бутылка разлагается 400-500 лет</li>
+                                <li>Переработка 1 тонны бумаги спасает 17 деревьев</li>
+                                <li>Алюминиевые банки можно перерабатывать бесконечно</li>
+                            </ul>
+                        </div>
+                        
+                        <h3>Правило 3R</h3>
+                        <p>Запомните простое правило: <strong>Reduce, Reuse, Recycle</strong></p>
+                        <p><strong>Reduce</strong> (Сокращай) - покупай меньше, выбирай товары с минимальной упаковкой</p>
+                        <p><strong>Reuse</strong> (Используй повторно) - дай вещам вторую жизнь</p>
+                        <p><strong>Recycle</strong> (Перерабатывай) - сортируй и сдавай мусор на переработку</p>
+                    </div>
+                    
+                    <!-- Простая викторина -->
+                    <div class="lesson-quiz">
+                        <h4>Проверьте свои знания:</h4>
+                        <div class="quiz-question">Сколько лет разлагается пластиковая бутылка?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="this.style.background='#ffebee'; this.style.borderColor='#f44336'">5-10 лет</div>
+                            <div class="quiz-option" onclick="this.style.background='#ffebee'; this.style.borderColor='#f44336'">50-100 лет</div>
+                            <div class="quiz-option" onclick="this.style.background='#e8f5e9'; this.style.borderColor='#4caf50'">400-500 лет</div>
+                        </div>
+                    </div>
+                    
+                    <div class="lesson-actions">
+                        <button class="action-btn prev" onclick="showLesson(1)">
+                            <i class="fas fa-arrow-left"></i> Предыдущий урок
+                        </button>
+                        <button class="action-btn next" onclick="showLesson(3)">
+                            Следующий урок <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Урок 3 -->
+                
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>Зелёный мир</span>
+                    </div>
+                    <p>Образовательный проект по экологии для школьников</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="lessons.html">Уроки</a></li>
+                        
+                        <li><a href="gallery.html">Галерея</a></li>
+                        <li><a href="resources.html">Ресурсы</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Для вопросов и предложений:</p>
+                    <div class="social-links">
+                        <a href="artur2010game@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://t.me/+fv_Vv0oOHssxMjMy" target="_blank"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear">2026</span> Проект "Зелёный мир". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript для переключения уроков -->
+    <script>
+        function showLesson(lessonNumber) {
+            // Скрыть все уроки
+            document.querySelectorAll('.lesson-content').forEach(lesson => {
+                lesson.classList.remove('active');
+            });
+            
+            // Убрать активный класс со всех вкладок
+            document.querySelectorAll('.lesson-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Показать выбранный урок
+            const selectedLesson = document.getElementById(`lesson${lessonNumber}`);
+            if (selectedLesson) {
+                selectedLesson.classList.add('active');
+                
+                // Сделать активной соответствующую вкладку
+                const selectedTab = document.querySelector(`.lesson-tab:nth-child(${lessonNumber})`);
+                if (selectedTab) {
+                    selectedTab.classList.add('active');
+                }
+                
+                // Прокрутить к началу урока
+                selectedLesson.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Устанавливаем текущий год в футере
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Добавляем анимацию появления элементов
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Наблюдаем за элементами уроков
+            document.querySelectorAll('.lesson-content-area, .lesson-quiz').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

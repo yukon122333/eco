@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотогалерея - Зелёный мир</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .gallery-page {
+            padding: 40px 0;
+        }
+        
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .gallery-header h2 {
+            color: var(--primary-dark);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .gallery-header p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .instructions {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .instructions h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .instructions ul {
+            text-align: left;
+            display: inline-block;
+            margin: 15px 0;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .photo-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+        
+        .photo-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary-light);
+        }
+        
+        .gallery-info {
+            padding: 20px;
+        }
+        
+        .gallery-info h3 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        
+        .gallery-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .gallery-date {
+            display: block;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .upload-section {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+        
+        .upload-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Зелёный мир</h1>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+                <a href="lessons.html"><i class="fas fa-book"></i> Уроки</a>
+                <a href="gallery.html" class="active"><i class="fas fa-images"></i> Галерея</a>
+                <a href="resources.html"><i class="fas fa-link"></i> Ресурсы</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="gallery-page">
+            <div class="container">
+                <div class="gallery-header">
+                    <h2>Фотогалерея наших уроков</h2>
+                    <p>Здесь вы можете увидеть фотографии с проведённых уроков и экологических мероприятий</p>
+                </div>
+                
+               
+                
+                <div class="gallery-grid" id="galleryContainer">
+                    <!-- Пример 1: ТУТ ВСТАВИТЬ ФОТО 1 -->
+                    <div class="gallery-item">
+                        <div class="photo-placeholder">
+                           
+                            <small><img src="C:\Users\artur\OneDrive\Рабочий стол\Регион ВСОШ 2026 проект\photo_5433744735026745438_y.jpg" wight="600" height="300"></img></small>
+                        </div>
+                        <!-- РАСКОММЕНТИРОВАТЬ И ЗАМЕНИТЬ ПУТЬ К ФАЙЛУ:
+                        <img src="images/gallery/urok1.jpg" alt="Урок по экологии 1" style="width:100%; height:250px; object-fit:cover;">
+                        -->
+                        <div class="gallery-info">
+                            <h3>Урок 1: "Основы экологии. Растения"</h3>
+                            <span class="gallery-date">15 сентября 2025</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Пример 2: ТУТ ВСТАВИТЬ ФОТО 2 -->
+                    <div class="gallery-item">
+                        <div class="photo-placeholder">
+                            <small><img src="C:\Users\artur\OneDrive\Рабочий стол\Регион ВСОШ 2026 проект\photo_5433744735026745439_y.jpg" height="300"></img></small>
+                        </div>
+                        <!-- РАСКОММЕНТИРОВАТЬ И ЗАМЕНИТЬ ПУТЬ К ФАЙЛУ:
+                        <img src="images/gallery/urok2.jpg" alt="Урок по экологии 2" style="width:100%; height:250px; object-fit:cover;">
+                        -->
+                        <div class="gallery-info">
+                            <h3>Эко-квест в парке</h3>
+                            <p>Игровое занятие на свежем воздухе. Дети искали "экологические нарушения" и предлагали решения.</p>
+                            <span class="gallery-date">22 октября 2025</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Добавьте больше фотографий по аналогии -->
+                </div>
+                
+                <div class="upload-section">
+                    <h3>У вас есть фотографии с уроков?</h3>
+                    <p>Добавьте их в папку проекта и обновите код галереи!</p>
+                    <a href="#" class="upload-btn" onclick="alert('Для добавления фото: 1) Поместите фото в папку images/gallery/ 2) Измените пути к изображениям в коде HTML'); return false;">
+                        <i class="fas fa-upload"></i> Инструкция по добавлению фото
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>Зелёный мир</span>
+                    </div>
+                    <p>Образовательный проект по экологии для школьников</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="lessons.html">Уроки</a></li>
+                       
+                        <li><a href="gallery.html">Галерея</a></li>
+                        <li><a href="resources.html">Ресурсы</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Для вопросов и предложений:</p>
+                    <div class="social-links">
+                        <a href="mailto:ecolessons@example.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://t.me/your_channel" target="_blank"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear">2024</span> Проект "Зелёный мир". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Дополнительный скрипт для галереи
+        document.addEventListener('DOMContentLoaded', function() {
+            // Простой просмотрщик фотографий
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (e.target.tagName === 'IMG') {
+                        const imgSrc = e.target.src;
+                        const imgAlt = e.target.alt;
+                        
+                        // Создаем модальное окно для просмотра
+                        const modal = document.createElement('div');
+                        modal.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(0,0,0,0.9);
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            z-index: 2000;
+                            cursor: pointer;
+                        `;
+                        
+                        const img = document.createElement('img');
+                        img.src = imgSrc;
+                        img.alt = imgAlt;
+                        img.style.cssText = `
+                            max-width: 90%;
+                            max-height: 90%;
+                            border-radius: 5px;
+                        `;
+                        
+                        const closeBtn = document.createElement('button');
+                        closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        closeBtn.style.cssText = `
+                            position: absolute;
+                            top: 20px;
+                            right: 20px;
+                            background: none;
+                            border: none;
+                            color: white;
+                            font-size: 2rem;
+                            cursor: pointer;
+                        `;
+                        
+                        modal.appendChild(img);
+                        modal.appendChild(closeBtn);
+                        document.body.appendChild(modal);
+                        
+                        // Закрытие модального окна
+                        function closeModal() {
+                            document.body.removeChild(modal);
+                        }
+                        
+                        modal.addEventListener('click', closeModal);
+                        closeBtn.addEventListener('click', closeModal);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
